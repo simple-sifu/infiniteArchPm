@@ -7,16 +7,21 @@ it("using direct to viewmodel", async () => {
   rolesDataSource.forEach((role) => {
     role.people.forEach((person) => {
       // console.log(person);
-      let hasPerson = usersPm.find((userName) => {
-        return person.name === userName;
+      let hasPerson = usersPm.find((userPm) => {
+        return person.name === userPm.userName;
       });
       if (!hasPerson) {
-        usersPm.push(person.name);
+        usersPm.push({userName: person.name});
       }
     });
   });
 
   let usersDisplayViewModel = [];
+
+  usersPm.forEach((user) => {
+    usersDisplayViewModel.push(user.userName);
+  })
+
   console.log(usersPm);
   console.log(usersDisplayViewModel);
   // step 2 - hydrating the ViewModel for users display
